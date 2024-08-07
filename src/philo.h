@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/02 16:44:00 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/07 22:11:07 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,41 @@
 
 typedef struct s_chopstick
 {
-	pthread_mutex_t mutex;
-	int             id;
+    pthread_mutex_t mutex;
+    int             id;
 } t_chopstick;
 
 typedef struct s_philo t_philo;
 
 typedef struct s_data
 {
-	int             num_philos;
-	long            time_to_die;
-	long            time_to_eat;
-	long            time_to_sleep;
-	int             meals_required;
-	bool            simulation_running;
-	long            start_time;
-	t_chopstick     *chopsticks;
-	t_philo         *philosophers;
-	pthread_mutex_t print_mutex;
-	pthread_mutex_t simulation_mutex;
+    int             num_philos;
+    long            time_to_die;
+    long            time_to_eat;
+    long            time_to_sleep;
+    int             meals_required;
+    bool            simulation_running;
+    long            start_time;
+    t_chopstick     *chopsticks;
+    t_philo         *philosophers;
+    pthread_mutex_t print_mutex;
+    pthread_mutex_t simulation_mutex;
 } t_data;
 
 struct s_philo
 {
-	int             id;
-	int             meals_eaten;
-	long            last_meal_time;
-	pthread_t       thread;
-	t_chopstick     *left_chopstick;
-	t_chopstick     *right_chopstick;
-	t_data          *data;
-	pthread_mutex_t meal_mutex;
+    int             id;
+    int             meals_eaten;
+    long            last_meal_time;
+    pthread_t       thread;
+    t_chopstick     *left_chopstick;
+    t_chopstick     *right_chopstick;
+    t_data          *data;
+    pthread_mutex_t meal_mutex;
 };
 
 // Function prototypes
-int		parse_arguments(int argc, char **argv, t_data *data);
+int     parse_arguments(int argc, char **argv, t_data *data);
 int     initialize_simulation(t_data *data);
 void    start_simulation(t_data *data);
 void    *philosopher_routine(void *arg);

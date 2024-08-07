@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:45:26 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/02 16:45:27 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/07 22:21:09 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,31 @@ static void release_chopsticks(t_philo *philo)
 
 static void eat(t_philo *philo)
 {
+	long start_time;
+
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal_time = get_current_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 
 	print_status(philo->data, philo->id, "is eating");
-	safe_sleep(philo->data->time_to_eat);
+	start_time = get_current_time();
+	while (get_current_time() - start_time < philo->data->time_to_eat)
+	{
+		if (!is_simulation_running(philo->data))
+			return;
+		usleep(100);
+	}
 }
 
 void *philosopher_routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
+	long start_time;
+
+	// Stagger start times to prevent deadlock
+	if (philo->id % 2 == 0)
+		usleep(1000);
 
 	while (is_simulation_running(philo->data))
 	{
@@ -48,7 +61,14 @@ void *philosopher_routine(void *arg)
 		eat(philo);
 		release_chopsticks(philo);
 		print_status(philo->data, philo->id, "is sleeping");
-		safe_sleep(philo->data->time_to_sleep);
+
+		start_time = get_current_time();
+		while (get_current_time() - start_time < philo->data->time_to_sleep)
+		{
+			if (!is_simulation_running(philo->data))
+				return NULL;
+			usleep(100);
+		}
 	}
 	return NULL;
 }
@@ -58,9 +78,11 @@ void *monitor_routine(void *arg)
 	t_data *data = (t_data *)arg;
 	int i;
 	long current_time;
+	bool all_full;
 
 	while (is_simulation_running(data))
 	{
+		all_full = true;
 		for (i = 0; i < data->num_philos; i++)
 		{
 			pthread_mutex_lock(&data->philosophers[i].meal_mutex);
@@ -72,14 +94,18 @@ void *monitor_routine(void *arg)
 				pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
 				return NULL;
 			}
-			if (data->meals_required > 0 && data->philosophers[i].meals_eaten >= data->meals_required)
+			if (data->meals_required > 0 && data->philosophers[i].meals_eaten < data->meals_required)
 			{
-				pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
-				continue;
+				all_full = false;
 			}
 			pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
 		}
-		usleep(1000);  // Sleep for 1ms to reduce CPU usage
+		if (data->meals_required > 0 && all_full)
+		{
+			set_simulation_status(data, false);
+			return NULL;
+		}
+		usleep(100);
 	}
 	return NULL;
 }
@@ -108,9 +134,9 @@ void start_simulation(t_data *data)
 	}
 
 	// Wait for threads to finish
+	pthread_join(monitor, NULL);
 	for (i = 0; i < data->num_philos; i++)
 	{
 		pthread_join(data->philosophers[i].thread, NULL);
 	}
-	pthread_join(monitor, NULL);
 }
