@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 20:05:18 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 20:06:03 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:01:04 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ void set_simulation_status(t_data *data, bool status)
 	data->simulation_running = status;
 	pthread_mutex_unlock(&data->simulation_mutex);
 }
-
