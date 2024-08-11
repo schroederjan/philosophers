@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 23:00:14 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 23:40:37 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #define COLOR_CYAN    "\033[0;36m"
 #define COLOR_WHITE   "\033[0;37m"
 
-#define MAX_PHILOSOPHERS 200
+#define MAX_PHILOSOPHERS 200 
 #define SUCCESS 0
 #define ERROR	1
 
@@ -74,8 +74,8 @@ struct s_philo
 int     parse_arguments(int argc, char **argv, t_data *data);
 int     initialize_simulation(t_data *data);
 void    start_simulation(t_data *data);
-void    *philosopher_routine(void *arg);
 void    *monitor_routine(void *arg);
+void	*philosopher_routine(void *arg);
 void    cleanup_simulation(t_data *data);
 
 // Utility functions
@@ -93,5 +93,8 @@ void	print_statistics(t_data *data);
 // Mutex utility functions
 bool    is_simulation_running(t_data *data);
 void    set_simulation_status(t_data *data, bool status);
+void	take_chopsticks(t_philo *philo);
+void	release_chopsticks(t_philo *philo);
+void	handle_single_philosopher(t_philo *philo);
 
 #endif
