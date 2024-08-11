@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:45:26 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/07 22:21:09 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:04:37 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,20 @@ void *monitor_routine(void *arg)
 		all_full = true;
 		for (i = 0; i < data->num_philos; i++)
 		{
-			pthread_mutex_lock(&data->philosophers[i].meal_mutex);
+			pthread_mutex_lock(&data->philos[i].meal_mutex);
 			current_time = get_current_time();
-			if (current_time - data->philosophers[i].last_meal_time > data->time_to_die)
+			if (current_time - data->philos[i].last_meal_time > data->time_to_die)
 			{
-				print_status(data, data->philosophers[i].id, "died");
+				print_status(data, data->philos[i].id, "died");
 				set_simulation_status(data, false);
-				pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
+				pthread_mutex_unlock(&data->philos[i].meal_mutex);
 				return NULL;
 			}
-			if (data->meals_required > 0 && data->philosophers[i].meals_eaten < data->meals_required)
+			if (data->meals_required > 0 && data->philos[i].meals_eaten < data->meals_required)
 			{
 				all_full = false;
 			}
-			pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
+			pthread_mutex_unlock(&data->philos[i].meal_mutex);
 		}
 		if (data->meals_required > 0 && all_full)
 		{
@@ -115,12 +115,12 @@ void start_simulation(t_data *data)
 	int i;
 	pthread_t monitor;
 
-	data->start_time = get_current_time();
+	data->simulation_start_time = get_current_time();
 	set_simulation_status(data, true);
 
 	for (i = 0; i < data->num_philos; i++)
 	{
-		if (pthread_create(&data->philosophers[i].thread, NULL, philosopher_routine, &data->philosophers[i]) != 0)
+		if (pthread_create(&data->philos[i].thread, NULL, philosopher_routine, &data->philos[i]) != 0)
 		{
 			// Handle error
 			return;
@@ -137,6 +137,6 @@ void start_simulation(t_data *data)
 	pthread_join(monitor, NULL);
 	for (i = 0; i < data->num_philos; i++)
 	{
-		pthread_join(data->philosophers[i].thread, NULL);
+		pthread_join(data->philos[i].thread, NULL);
 	}
 }

@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 18:58:50 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 20:12:28 by jschroed         ###   ########.fr       */
+/*   Created: 2024/08/11 19:16:37 by jschroed          #+#    #+#             */
+/*   Updated: 2024/08/11 20:09:24 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int argc, char **argv)
+void cleanup_simulation(t_data *data)
 {
-	t_data data;
+	int i;
 
-	if (parse_arguments(argc, argv, &data) != 0)
-		return (ERROR);
-	if (initialize_simulation(&data) != 0)
-		return (ERROR);
-	start_simulation(&data);
-	cleanup_simulation(&data);
-	return (SUCCESS);
+	i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_mutex_destroy(&data->chopsticks[i].mutex);
+		pthread_mutex_destroy(&data->philos[i].meal_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->simulation_mutex);
+	free(data->chopsticks);
+	free(data->philos);
 }
