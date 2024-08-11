@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:17:49 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 20:04:53 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:23:50 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int print_error(const char *msg, int return_code)
 {
-	printf("Error: %s\n", msg);
+	printf(COLOR_RED "Error: %s\n" COLOR_RESET, msg);
 	return return_code;
 }
 
@@ -58,7 +58,8 @@ static int validate_arguments(t_data *data, int argc)
 
 void print_parse_error_usage(const char *program_name)
 {
-    printf("Error: Invalid number of arguments.\n");
+    printf(COLOR_RED "Error: Invalid number of arguments.\n" COLOR_RESET);
+	printf(COLOR_BLUE);
     printf("Usage: %s <args>\n", program_name);
     printf("Arguments:\n");
     printf("  1. number_of_philosophers\n");
@@ -66,6 +67,7 @@ void print_parse_error_usage(const char *program_name)
     printf("  3. time_to_eat (in milliseconds)\n");
     printf("  4. time_to_sleep (in milliseconds)\n");
     printf("  5. [number_of_times_each_philosopher_must_eat] (optional)\n");
+	printf(COLOR_RESET);
 }
 
 int parse_arguments(int argc, char **argv, t_data *data)

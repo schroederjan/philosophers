@@ -6,7 +6,6 @@ CFLAGS = -Wall -Wextra -Werror
 SRCDIR = src
 OBJDIR = obj
 
-# Use shell command to find all .c files in the SRCDIR
 SRCS = $(shell find $(SRCDIR) -name '*.c')
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 
