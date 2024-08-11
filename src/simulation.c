@@ -6,13 +6,13 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:45:26 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 20:56:10 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:55:32 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void start_simulation(t_data *data)
+void	start_simulation(t_data *data)
 {
 	int i;
 	pthread_t monitor;
@@ -35,7 +35,7 @@ void start_simulation(t_data *data)
 		return;
 	}
 	pthread_join(monitor, NULL);
-	set_simulation_status(data, false);  // Ensure simulation is stopped
+	set_simulation_status(data, false);
 	i = 0;
 	while (i < data->num_philos)
 	{

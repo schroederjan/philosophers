@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/11 21:50:03 by jschroed          #+#    #+#             */
+/*   Updated: 2024/08/11 21:55:00 by jschroed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 #define TIME_MARGIN 10 // ms
 
-static void take_chopsticks(t_philo *philo)
+static void		take_chopsticks(t_philo *philo)
 {
-	// Implement global ordering to prevent deadlock
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->right_chopstick->mutex);
@@ -21,13 +32,13 @@ static void take_chopsticks(t_philo *philo)
 	}
 }
 
-static void release_chopsticks(t_philo *philo)
+static void		release_chopsticks(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->left_chopstick->mutex);
 	pthread_mutex_unlock(&philo->right_chopstick->mutex);
 }
 
-static void eat(t_philo *philo)
+static void		eat(t_philo *philo)
 {
 	long start_time;
 
@@ -35,35 +46,31 @@ static void eat(t_philo *philo)
 	philo->last_meal_time = get_current_time();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
-
 	print_status(philo->data, philo->id, "is eating");
 	start_time = get_current_time();
 	while (get_current_time() - start_time < philo->data->time_to_eat)
 	{
 		if (!is_simulation_running(philo->data))
 			return;
-		usleep(1000); // Sleep for 1ms instead of 100us for better precision
+		usleep(1000);
 	}
 }
 
-void *philosopher_routine(void *arg)
+void	*philosopher_routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
 	long start_time;
 
 	philo->last_meal_time = philo->data->simulation_start_time;
-
 	if (philo->id % 2 == 0)
 		usleep(1000);
-
 	if (philo->data->num_philos == 1)
 	{
 		print_status(philo->data, philo->id, "has taken a chopstick");
 		while (is_simulation_running(philo->data))
 			usleep(1000);
-		return NULL;
+		return (NULL);
 	}
-
 	while (is_simulation_running(philo->data))
 	{
 		print_status(philo->data, philo->id, "is thinking");
@@ -71,19 +78,18 @@ void *philosopher_routine(void *arg)
 		eat(philo);
 		release_chopsticks(philo);
 		print_status(philo->data, philo->id, "is sleeping");
-
 		start_time = get_current_time();
 		while (get_current_time() - start_time < philo->data->time_to_sleep)
 		{
 			if (!is_simulation_running(philo->data))
-				return NULL;
-			usleep(1000); // Sleep for 1ms instead of 100us
+				return (NULL);
+			usleep(1000);
 		}
 	}
-	return NULL;
+	return (NULL);
 }
 
-void *monitor_routine(void *arg)
+void	*monitor_routine(void *arg)
 {
 	t_data *data = (t_data *)arg;
 	int i;
@@ -106,18 +112,16 @@ void *monitor_routine(void *arg)
 				return NULL;
 			}
 			if (data->meals_required > 0 && data->philos[i].meals_eaten < data->meals_required)
-			{
 				all_full = false;
-			}
 			pthread_mutex_unlock(&data->philos[i].meal_mutex);
 			i++;
 		}
 		if (data->meals_required > 0 && all_full)
 		{
 			set_simulation_status(data, false);
-			return NULL;
+			return (NULL);
 		}
-		usleep(1000); // Check every 1ms instead of 100us
+		usleep(1000);
 	}
-	return NULL;
+	return (NULL);
 }
