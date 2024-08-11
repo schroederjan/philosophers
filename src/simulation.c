@@ -6,11 +6,21 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:45:26 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 21:55:32 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 21:57:20 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void join_philosopher_threads(t_data *data)
+{
+	int i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_join(data->philos[i].thread, NULL);
+		i++;
+	}
+}
 
 void	start_simulation(t_data *data)
 {
@@ -36,10 +46,5 @@ void	start_simulation(t_data *data)
 	}
 	pthread_join(monitor, NULL);
 	set_simulation_status(data, false);
-	i = 0;
-	while (i < data->num_philos)
-	{
-		pthread_join(data->philos[i].thread, NULL);
-		i++;
-	}
+	join_philosopher_threads(data);
 }

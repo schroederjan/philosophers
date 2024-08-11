@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 21:44:27 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:57:13 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int	init_philos(t_data *data)
 		data->philos[i].has_eaten_enough = false;
 		data->philos[i].last_meal_time = 0;
 		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
-			return (print_error_and_return(
-						"Philosopher mutex initialization failed"));
+			return (print_error(
+						"Philosopher mutex initialization failed", 1));
 		assign_chopsticks(&data->philos[i], data->chopsticks);
 		i++;
 	}
@@ -60,8 +60,8 @@ static int	init_chopsticks(t_data *data)
 	while (i < data->num_philos)
 	{
 		if (pthread_mutex_init(&data->chopsticks[i].mutex, NULL) != 0)
-			return (print_error_and_return(
-						"Chopstick mutex initialization failed"));
+			return (print_error(
+						"Chopstick mutex initialization failed", 1));
 		data->chopsticks[i].id = i;
 		i++;
 	}
@@ -74,7 +74,7 @@ static int	init_data(t_data *data)
 	data->time_to_think = data->time_to_die - data->time_to_eat - data->time_to_sleep;
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 ||
 			pthread_mutex_init(&data->simulation_mutex, NULL) != 0)
-		return (print_error_and_return("Global mutex initialization failed"));
+		return (print_error("Global mutex initialization failed", 1));
 	data->simulation_start_time = get_current_time();
 	return (SUCCESS);
 }
@@ -84,7 +84,7 @@ int		initialize_simulation(t_data *data)
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	data->chopsticks = malloc(sizeof(t_chopstick) * data->num_philos);
 	if (!data->philos || !data->chopsticks)
-		return (print_error_and_return("Memory allocation failed"));
+		return (print_error("Memory allocation failed", 1));
 
 	if (init_chopsticks(data) != SUCCESS)
 		return (ERROR);

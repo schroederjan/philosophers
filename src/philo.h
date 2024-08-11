@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 21:10:55 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 23:00:14 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,18 @@ void    *monitor_routine(void *arg);
 void    cleanup_simulation(t_data *data);
 
 // Utility functions
-int		print_error_and_return(const char *error_message);
 long    get_current_time(void);
-void    print_status(t_data *data, int philo_id, const char *status);
-long	atoi_positive_long(const char *str);
 int     safe_sleep(long duration);
+long	atoi_positive_long(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
+// Print utility functions
+int		print_error(const char *msg, int return_code);
+void    print_status(t_data *data, int philo_id, const char *status);
+void	print_parse_error_usage(const char *program_name);
+void	print_statistics(t_data *data);
+
+// Mutex utility functions
 bool    is_simulation_running(t_data *data);
 void    set_simulation_status(t_data *data, bool status);
 

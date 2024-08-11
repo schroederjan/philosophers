@@ -6,17 +6,11 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:17:49 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 21:47:59 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/11 22:57:46 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	print_error(const char *msg, int return_code)
-{
-	printf(COLOR_RED "Error: %s\n" COLOR_RESET, msg);
-	return (return_code);
-}
 
 static int	validate_argument_string(const char *s)
 {
@@ -54,20 +48,6 @@ static int	validate_arguments(t_data *data, int argc)
 		return (print_error(
 				"Number of meals must be at least 1.", 1));
 	return (SUCCESS);
-}
-
-void	print_parse_error_usage(const char *program_name)
-{
-	printf(COLOR_RED "Error: Invalid number of arguments.\n" COLOR_RESET);
-	printf(COLOR_YELLOW);
-	printf("Usage: %s <args>\n", program_name);
-	printf("Arguments:\n");
-	printf("  1. number_of_philosophers\n");
-	printf("  2. time_to_die (in milliseconds)\n");
-	printf("  3. time_to_eat (in milliseconds)\n");
-	printf("  4. time_to_sleep (in milliseconds)\n");
-	printf("  5. [number_of_times_each_philosopher_must_eat] (optional)\n");
-	printf(COLOR_RESET);
 }
 
 int		parse_arguments(int argc, char **argv, t_data *data)
