@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 20:05:18 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 22:52:48 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:37:03 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_simulation_running(t_data *data)
 {
-	bool status;
+	bool	status;
 
 	pthread_mutex_lock(&data->simulation_mutex);
 	status = data->simulation_running;

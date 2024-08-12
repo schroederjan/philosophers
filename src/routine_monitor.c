@@ -6,20 +6,18 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 23:03:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 09:35:44 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:35:28 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-#define TIME_MARGIN 10 // ms
-
 static bool	check_philosopher_death(t_data *data, t_philo *philo)
 {
-	long current_time;
+	long	current_time;
 
 	current_time = get_current_time();
-	if (current_time - philo->last_meal_time > data->time_to_die + TIME_MARGIN)
+	if (current_time - philo->last_meal_time > data->time_to_die)
 	{
 		print_status(data, philo->id, "died");
 		set_simulation_status(data, false);
@@ -30,8 +28,8 @@ static bool	check_philosopher_death(t_data *data, t_philo *philo)
 
 static bool	check_all_philosophers_full(t_data *data)
 {
-	int i;
-	bool all_full;
+	int		i;
+	bool	all_full;
 
 	i = 0;
 	all_full = true;
@@ -57,16 +55,15 @@ static bool	check_all_philosophers_full(t_data *data)
 	return (false);
 }
 
-void    *monitor_routine(void *arg)
+void	*monitor_routine(void *arg)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)arg;
 	while (is_simulation_running(data))
 	{
 		if (check_all_philosophers_full(data))
 			return (NULL);
-		usleep(1000);
 	}
 	return (NULL);
 }

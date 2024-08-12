@@ -6,22 +6,22 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 22:57:13 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:26:29 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void		assign_chopsticks(t_philo *philo, t_chopstick *chopsticks)
+static void	assign_chopsticks(t_philo *philo, t_chopstick *chopsticks)
 {
-	int i;
+	int		i;
 
 	i = philo->id - 1;
 	if (i % 2 == 0)
 	{
 		philo->left_chopstick = &chopsticks[i];
 		philo->right_chopstick = &chopsticks[(i + 1) % \
-								 philo->data->num_philos];
+								philo->data->num_philos];
 	}
 	else
 	{
@@ -33,7 +33,7 @@ static void		assign_chopsticks(t_philo *philo, t_chopstick *chopsticks)
 
 static int	init_philos(t_data *data)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < data->num_philos)
@@ -44,8 +44,7 @@ static int	init_philos(t_data *data)
 		data->philos[i].has_eaten_enough = false;
 		data->philos[i].last_meal_time = 0;
 		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
-			return (print_error(
-						"Philosopher mutex initialization failed", 1));
+			return (print_error("Philosopher mutex initialization failed", 1));
 		assign_chopsticks(&data->philos[i], data->chopsticks);
 		i++;
 	}
@@ -54,14 +53,13 @@ static int	init_philos(t_data *data)
 
 static int	init_chopsticks(t_data *data)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < data->num_philos)
 	{
 		if (pthread_mutex_init(&data->chopsticks[i].mutex, NULL) != 0)
-			return (print_error(
-						"Chopstick mutex initialization failed", 1));
+			return (print_error("Chopstick mutex initialization failed", 1));
 		data->chopsticks[i].id = i;
 		i++;
 	}
@@ -71,21 +69,23 @@ static int	init_chopsticks(t_data *data)
 static int	init_data(t_data *data)
 {
 	data->simulation_running = false;
-	data->time_to_think = data->time_to_die - data->time_to_eat - data->time_to_sleep;
-	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 ||
+	data->time_to_think = \
+						data->time_to_die - \
+						data->time_to_eat - \
+						data->time_to_sleep;
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 || \
 			pthread_mutex_init(&data->simulation_mutex, NULL) != 0)
 		return (print_error("Global mutex initialization failed", 1));
 	data->simulation_start_time = get_current_time();
 	return (SUCCESS);
 }
 
-int		initialize_simulation(t_data *data)
+int	initialize_simulation(t_data *data)
 {
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	data->chopsticks = malloc(sizeof(t_chopstick) * data->num_philos);
 	if (!data->philos || !data->chopsticks)
 		return (print_error("Memory allocation failed", 1));
-
 	if (init_chopsticks(data) != SUCCESS)
 		return (ERROR);
 	if (init_philos(data) != SUCCESS)

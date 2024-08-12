@@ -6,36 +6,36 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 23:40:37 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:45:32 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <stdio.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdbool.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
+# include <stdbool.h>
 
-#define COLOR_RESET   "\033[0m"
-#define COLOR_RED     "\033[0;31m"
-#define COLOR_GREEN   "\033[0;32m"
-#define COLOR_YELLOW  "\033[0;33m"
-#define COLOR_BLUE    "\033[0;34m"
-#define COLOR_MAGENTA "\033[0;35m"
-#define COLOR_CYAN    "\033[0;36m"
-#define COLOR_WHITE   "\033[0;37m"
+# define COLOR_RESET   "\033[0m"
+# define COLOR_RED     "\033[0;31m"
+# define COLOR_GREEN   "\033[0;32m"
+# define COLOR_YELLOW  "\033[0;33m"
+# define COLOR_BLUE    "\033[0;34m"
+# define COLOR_MAGENTA "\033[0;35m"
+# define COLOR_CYAN    "\033[0;36m"
+# define COLOR_WHITE   "\033[0;37m"
 
-#define MAX_PHILOSOPHERS 200 
-#define SUCCESS 0
-#define ERROR	1
+# define MAX_PHILOSOPHERS 200 
+# define SUCCESS 0
+# define ERROR	1
 
 typedef struct s_chopstick
 {
-    pthread_mutex_t mutex;
+    pthread_mutex_t		mutex;
     int             id;
 } t_chopstick;
 

@@ -6,15 +6,15 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 18:58:50 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 09:45:33 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:27:17 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data data;
+	t_data	data;
 
 	if (parse_arguments(argc, argv, &data) != 0)
 		return (ERROR);

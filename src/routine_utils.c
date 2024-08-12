@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 23:29:51 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 23:41:46 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:18:49 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ void	handle_single_philosopher(t_philo *philo)
 {
 	print_status(philo->data, philo->id, "has taken a chopstick");
 	while (is_simulation_running(philo->data))
-		usleep(1000);
+		usleep(100);
 }

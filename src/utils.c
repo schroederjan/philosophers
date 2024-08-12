@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:25:07 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 22:58:16 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:37:36 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 long	atoi_positive_long(const char *str)
 {
-	long result;
+	long	result;
 
 	result = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
@@ -41,9 +41,9 @@ long	atoi_positive_long(const char *str)
 	return (result);
 }
 
-int		safe_sleep(long duration)
+int	safe_sleep(long duration)
 {
-	long simulation_start_time;
+	long	simulation_start_time;
 
 	simulation_start_time = get_current_time();
 	while (get_current_time() - simulation_start_time < duration)
@@ -53,7 +53,7 @@ int		safe_sleep(long duration)
 
 long	get_current_time(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (long)1000) + (tv.tv_usec / 1000));

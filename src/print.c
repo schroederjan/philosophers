@@ -6,36 +6,39 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 22:51:10 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 22:58:10 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:41:27 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		print_error(const char *msg, int return_code)
+int	print_error(const char *msg, int return_code)
 {
 	printf(COLOR_RED "Error: %s\n" COLOR_RESET, msg);
 	return (return_code);
 }
 
-const char*		get_color_for_status(const char *status) {
+const char	*get_color_for_status(const char *status)
+{
 	if (ft_strncmp(status, "is thinking", 11) == 0)
-		return COLOR_BLUE;
+		return (COLOR_BLUE);
 	else if (ft_strncmp(status, "is eating", 9) == 0)
-		return COLOR_GREEN;
+		return (COLOR_GREEN);
 	else if (ft_strncmp(status, "is sleeping", 11) == 0)
-		return COLOR_CYAN;
-	else if (ft_strncmp(status, "has died", 7) == 0)
-		return COLOR_RED;
-	return COLOR_RESET;
+		return (COLOR_CYAN);
+	else if (ft_strncmp(status, "died", 4) == 0)
+		return (COLOR_RED);
+	return (COLOR_RESET);
 }
 
 void	print_status(t_data *data, int philo_id, const char *status)
 {
-	const char* color = get_color_for_status(status);
+	const char	*color;
 
+	color = get_color_for_status(status);
 	pthread_mutex_lock(&data->print_mutex);
-	if (is_simulation_running(data)) {
+	if (is_simulation_running(data))
+	{
 		color = get_color_for_status(status);
 		printf("%s%ld %d %s%s\n", \
 				color, \
@@ -63,8 +66,8 @@ void	print_parse_error_usage(const char *program_name)
 
 void	print_statistics(t_data *data)
 {
-	int i;
-	int total_meals;
+	int		i;
+	int		total_meals;
 
 	total_meals = 0;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:17:49 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 22:57:46 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:27:03 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	validate_argument_string(const char *s)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (s[0] == '0')
@@ -50,9 +50,9 @@ static int	validate_arguments(t_data *data, int argc)
 	return (SUCCESS);
 }
 
-int		parse_arguments(int argc, char **argv, t_data *data)
+int	parse_arguments(int argc, char **argv, t_data *data)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	if (argc != 5 && argc != 6)
