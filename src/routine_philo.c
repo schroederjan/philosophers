@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 21:50:03 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 23:43:33 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 09:42:52 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void		philo_eat(t_philo *philo)
 	while (get_current_time() - start_time < philo->data->time_to_eat)
 	{
 		if (!is_simulation_running(philo->data))
+		{
+			release_chopsticks(philo);
 			return;
+		}
 		usleep(1000);
 	}
 	release_chopsticks(philo);
@@ -38,7 +41,8 @@ static void		philo_sleep(t_philo *philo)
 
 	print_status(philo->data, philo->id, "is sleeping");
 	start_time = get_current_time();
-	while (get_current_time() - start_time < philo->data->time_to_sleep) {
+	while (get_current_time() - start_time < philo->data->time_to_sleep)
+	{
 		if (!is_simulation_running(philo->data))
 			return;
 		usleep(1000);

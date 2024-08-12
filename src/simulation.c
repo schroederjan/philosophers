@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:45:26 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/11 23:02:17 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/12 09:25:41 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	start_simulation(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		if (pthread_create(&data->philos[i].thread, NULL, philosopher_routine, &data->philos[i]) != 0)
+		if (pthread_create(&data->philos[i].thread, \
+					NULL, philosopher_routine, &data->philos[i]) != 0)
 		{
 			set_simulation_status(data, false);
 			return;
