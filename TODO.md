@@ -1,4 +1,3 @@
 - malloc issues check
 - safe_sleep ??
-- norm -> .h
 - understanding

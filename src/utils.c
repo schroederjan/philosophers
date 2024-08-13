@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:25:07 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 21:37:36 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:18:51 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ long	atoi_positive_long(const char *str)
 		str++;
 	}
 	return (result);
-}
-
-int	safe_sleep(long duration)
-{
-	long	simulation_start_time;
-
-	simulation_start_time = get_current_time();
-	while (get_current_time() - simulation_start_time < duration)
-		usleep(500);
-	return (0);
 }
 
 long	get_current_time(void)

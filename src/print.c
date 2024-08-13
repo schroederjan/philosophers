@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 22:51:10 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 21:41:27 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:33:59 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	print_statistics(t_data *data)
 	printf(COLOR_YELLOW "\n--- Simulation Statistics ---\n");
 	while (i < data->num_philos)
 	{
-		printf("Philosopher %d ate %d meals\n", \
+		printf("Philosopher %d ate %d full meals\n", \
 				data->philos[i].id, data->philos[i].meals_eaten);
 		total_meals += data->philos[i].meals_eaten;
 		i++;
 	}
-	printf("Total meals eaten: %d\n", total_meals);
-	printf("Average meals per philosopher: %.2f\n", \
+	printf("Total full meals eaten: %d\n", total_meals);
+	printf("Average full meals per philosopher: %.2f\n", \
 			(float)total_meals / data->num_philos);
 	if (data->meals_required > 0)
 	{

@@ -6,20 +6,28 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 21:50:03 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 21:36:16 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:36:23 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void	increment_meal_count(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->meal_mutex);
+}
+
 static void	philo_eat(t_philo *philo)
 {
 	long	start_time;
+	bool	meal_completed;
 
+	meal_completed = false;
 	take_chopsticks(philo);
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal_time = get_current_time();
-	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_status(philo->data, philo->id, "is eating");
 	start_time = get_current_time();
@@ -31,7 +39,10 @@ static void	philo_eat(t_philo *philo)
 			return ;
 		}
 	}
+	meal_completed = true;
 	release_chopsticks(philo);
+	if (meal_completed)
+		increment_meal_count(philo);
 }
 
 static void	philo_sleep(t_philo *philo)

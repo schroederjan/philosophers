@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/13 09:09:53 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 09:18:58 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	cleanup_simulation(t_data *data);
 
 // Utility functions
 long	get_current_time(void);
-int		safe_sleep(long duration);
 long	atoi_positive_long(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
