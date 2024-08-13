@@ -6,6 +6,7 @@ COLOR_RESET = \033[0m
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -fsanitize=undefined -g
 
 SRCDIR = src
 OBJDIR = obj
@@ -35,4 +36,10 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norm:
+	@norminette -R CheckForbiddenSourceHeader ./src
+
+val:
+	@valgrind ./philo 2 300 200 100
+
+.PHONY: all clean fclean re norm val
