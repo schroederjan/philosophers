@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 21:26:29 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:09:35 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	init_data(t_data *data)
 						data->time_to_sleep;
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 || \
 			pthread_mutex_init(&data->simulation_mutex, NULL) != 0)
-		return (print_error("Global mutex initialization failed", 1));
+		return (print_error("Simulation mutex initialization failed", 1));
 	data->simulation_start_time = get_current_time();
 	return (SUCCESS);
 }

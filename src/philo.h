@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/13 09:18:58 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:11:40 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # define COLOR_CYAN    "\033[0;36m"
 # define COLOR_WHITE   "\033[0;37m"
 
-# define MAX_PHILOSOPHERS 200 
 # define SUCCESS 0
 # define ERROR	1
 
