@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:25:07 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/13 09:18:51 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:22:13 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ long	get_current_time(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (long)1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_usleep(long milliseconds)
+{
+	long	start_time;
+
+	start_time = get_current_time();
+	while (get_current_time() - start_time < milliseconds)
+		usleep(500);
 }

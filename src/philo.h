@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/13 10:11:40 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:07:43 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	cleanup_simulation(t_data *data);
 long	get_current_time(void);
 long	atoi_positive_long(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_usleep(long milliseconds);
 
 // Print utility functions
 int		print_error(const char *msg, int return_code);

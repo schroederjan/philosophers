@@ -6,36 +6,18 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/14 08:43:19 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:19:08 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void assign_chopsticks(t_philo *philo, t_chopstick *chopsticks, int num_philos)
+static void	assign_chopsticks(\
+		t_philo *philo, t_chopstick *chopsticks, int num_philos)
 {
-    philo->left_chopstick = &chopsticks[philo->id - 1];
-    philo->right_chopstick = &chopsticks[philo->id % num_philos];
+	philo->left_chopstick = &chopsticks[philo->id - 1];
+	philo->right_chopstick = &chopsticks[philo->id % num_philos];
 }
-
-/* static void	assign_chopsticks(t_philo *philo, t_chopstick *chopsticks) */
-/* { */
-/*     int		i; */
-/*  */
-/*     i = philo->id - 1; */
-/*     if (i % 2 == 0) */
-/*     { */
-/*         philo->left_chopstick = &chopsticks[i]; */
-/*         philo->right_chopstick = &chopsticks[(i + 1) % \ */
-/*                                 philo->data->num_philos]; */
-/*     } */
-/*     else */
-/*     { */
-/*         philo->left_chopstick = &chopsticks[(i + 1) % \ */
-/*                                 philo->data->num_philos]; */
-/*         philo->right_chopstick = &chopsticks[i]; */
-/*     } */
-/* } */
 
 static int	init_philos(t_data *data)
 {
@@ -51,7 +33,6 @@ static int	init_philos(t_data *data)
 		data->philos[i].last_meal_time = 0;
 		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
 			return (print_error("Philosopher mutex initialization failed", 1));
-		/* assign_chopsticks(&data->philos[i], data->chopsticks); */
 		assign_chopsticks(&data->philos[i], data->chopsticks, data->num_philos);
 		i++;
 	}

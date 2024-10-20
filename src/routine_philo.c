@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 21:50:03 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/13 09:36:23 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:20:12 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	increment_meal_count(t_philo *philo)
 
 static void	philo_eat(t_philo *philo)
 {
-	long	start_time;
 	bool	meal_completed;
 
 	meal_completed = false;
@@ -30,15 +29,7 @@ static void	philo_eat(t_philo *philo)
 	philo->last_meal_time = get_current_time();
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_status(philo->data, philo->id, "is eating");
-	start_time = get_current_time();
-	while (get_current_time() - start_time < philo->data->time_to_eat)
-	{
-		if (!is_simulation_running(philo->data))
-		{
-			release_chopsticks(philo);
-			return ;
-		}
-	}
+	ft_usleep(philo->data->time_to_eat);
 	meal_completed = true;
 	release_chopsticks(philo);
 	if (meal_completed)
@@ -47,15 +38,8 @@ static void	philo_eat(t_philo *philo)
 
 static void	philo_sleep(t_philo *philo)
 {
-	long	start_time;
-
 	print_status(philo->data, philo->id, "is sleeping");
-	start_time = get_current_time();
-	while (get_current_time() - start_time < philo->data->time_to_sleep)
-	{
-		if (!is_simulation_running(philo->data))
-			return ;
-	}
+	ft_usleep(philo->data->time_to_sleep);
 }
 
 void	philo_think(t_philo *philo)
@@ -70,7 +54,7 @@ void	*philosopher_routine(void *arg)
 	philo = (t_philo *)arg;
 	philo->last_meal_time = philo->data->simulation_start_time;
 	if (philo->id % 2 == 0)
-		usleep(150);
+		ft_usleep(150);
 	if (philo->data->num_philos == 1)
 	{
 		handle_single_philosopher(philo);
