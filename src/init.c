@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:19:08 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:56:09 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	assign_chopsticks(\
 static int	init_philos(t_data *data)
 {
 	int		i;
+	long	current_time = get_current_time();
 
 	i = 0;
 	while (i < data->num_philos)
@@ -30,7 +31,7 @@ static int	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].has_eaten_enough = false;
-		data->philos[i].last_meal_time = 0;
+		data->philos[i].last_meal_time = current_time;
 		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0)
 			return (print_error("Philosopher mutex initialization failed", 1));
 		assign_chopsticks(&data->philos[i], data->chopsticks, data->num_philos);
