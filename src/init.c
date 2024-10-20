@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 17:56:09 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:09:15 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ static void	assign_chopsticks(\
 static int	init_philos(t_data *data)
 {
 	int		i;
-	long	current_time = get_current_time();
+	long	current_time;
 
+	current_time = get_current_time();
 	i = 0;
 	while (i < data->num_philos)
 	{
