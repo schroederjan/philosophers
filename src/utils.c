@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:25:07 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:22:13 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:49:00 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ long	get_current_time(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (long)1000) + (tv.tv_usec / 1000));
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
 void	ft_usleep(long milliseconds)
@@ -54,6 +54,6 @@ void	ft_usleep(long milliseconds)
 	long	start_time;
 
 	start_time = get_current_time();
-	while (get_current_time() - start_time < milliseconds)
+	while ((get_current_time() - start_time) < milliseconds)
 		usleep(500);
 }

@@ -6,17 +6,36 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:15:30 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:19:08 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:02:22 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	assign_chopsticks(\
-		t_philo *philo, t_chopstick *chopsticks, int num_philos)
+/* static void	assign_chopsticks(\ */
+/*         t_philo *philo, t_chopstick *chopsticks, int num_philos) */
+/* { */
+/*     philo->left_chopstick = &chopsticks[philo->id - 1]; */
+/*     philo->right_chopstick = &chopsticks[philo->id % num_philos]; */
+/* } */
+
+
+static void assign_chopsticks(t_philo *philo, t_chopstick *chopsticks, int num_philos)
 {
-	philo->left_chopstick = &chopsticks[philo->id - 1];
-	philo->right_chopstick = &chopsticks[philo->id % num_philos];
+    int i = philo->id - 1;  // Convert to 0-based index
+
+    if (i % 2 != 0)
+    {
+        // Odd-numbered philosopher
+        philo->left_chopstick = &chopsticks[i];
+        philo->right_chopstick = &chopsticks[(i + 1) % num_philos];
+    }
+    else
+    {
+        // Even-numbered philosopher
+        philo->left_chopstick = &chopsticks[(i + 1) % num_philos];
+        philo->right_chopstick = &chopsticks[i];
+    }
 }
 
 static int	init_philos(t_data *data)
@@ -80,5 +99,9 @@ int	initialize_simulation(t_data *data)
 		return (ERROR);
 	if (init_data(data) != SUCCESS)
 		return (ERROR);
+
+	if (pthread_barrier_init(&data->start_barrier, NULL, data->num_philos + 1) != 0)
+		return (print_error("Barrier initialization failed", 1));
+
 	return (SUCCESS);
 }

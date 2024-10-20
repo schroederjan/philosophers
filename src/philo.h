@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:08:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:07:43 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:18:46 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	simulation_mutex;
+	pthread_barrier_t start_barrier;
 }	t_data;
 
 struct s_philo
@@ -92,7 +93,8 @@ void	print_statistics(t_data *data);
 // Mutex utility functions
 bool	is_simulation_running(t_data *data);
 void	set_simulation_status(t_data *data, bool status);
-void	take_chopsticks(t_philo *philo);
+// void	take_chopsticks(t_philo *philo);
+bool	take_chopsticks(t_philo *philo);
 void	release_chopsticks(t_philo *philo);
 void	handle_single_philosopher(t_philo *philo);
 
