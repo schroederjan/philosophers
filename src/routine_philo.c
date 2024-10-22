@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 21:50:03 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:20:12 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:59:29 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,12 @@ void	*philosopher_routine(void *arg)
 	while (is_simulation_running(philo->data))
 	{
 		philo_eat(philo);
+		if (!is_simulation_running(philo->data)) break;
 		philo_sleep(philo);
+		if (!is_simulation_running(philo->data)) break;
 		philo_think(philo);
+		usleep(200);
+
 	}
 	return (NULL);
 }

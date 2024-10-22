@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:25:07 by jschroed          #+#    #+#             */
-/*   Updated: 2024/10/20 14:22:13 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/22 20:48:04 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void	ft_usleep(long milliseconds)
 
 	start_time = get_current_time();
 	while (get_current_time() - start_time < milliseconds)
-		usleep(500);
+		usleep(100);
 }
