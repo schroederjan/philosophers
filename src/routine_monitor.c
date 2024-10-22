@@ -6,7 +6,7 @@
 /*   By: jschroed <jschroed@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 23:03:31 by jschroed          #+#    #+#             */
-/*   Updated: 2024/08/12 21:35:28 by jschroed         ###   ########.fr       */
+/*   Updated: 2024/10/22 19:29:41 by jschroed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	check_philosopher_death(t_data *data, t_philo *philo)
 	long	current_time;
 
 	current_time = get_current_time();
-	if (current_time - philo->last_meal_time > data->time_to_die)
+	if (current_time - philo->last_meal_time >= data->time_to_die)
 	{
 		print_status(data, philo->id, "died");
 		set_simulation_status(data, false);
